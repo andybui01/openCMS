@@ -10,6 +10,15 @@ class Athlete(models.Model):
     def __str__(self):
         return self.name
     
+    def get_list(self):
+        return ', '.join([
+            self.name,
+            str(self.get_birth_year()),
+            str(self.gender),
+            str(self.bodyweight),
+            self.affiliation
+        ])
+
     def get_birth_year(self):
         return self.date_of_birth.year
 
