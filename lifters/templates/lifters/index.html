@@ -1,0 +1,26 @@
+{% if lifters_list %}
+
+    <table>
+
+        <tr>
+                <td>Name</td>
+                <td>Year</td>
+                <td>Gender</td>
+                <td>BW</td>
+                <td>Affiliation</td>
+        </tr>
+
+        {% for lifter in lifters_list %}
+            <tr>
+                <td>{{ lifter.name }}</td>
+                <td>{{ lifter.date_of_birth.year }}</td>
+                <td>{{ lifter.gender }}</td>
+                <td>{{ lifter.bodyweight }}</td>
+                <td>{{ lifter.affiliation }}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+{% else %}
+    <p> No lifters to show! </p>
+{% endif %}

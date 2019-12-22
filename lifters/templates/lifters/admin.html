@@ -1,0 +1,9 @@
+<h1>Create athlete profile</h1>
+
+<form action="/lifters/create/" method="post">
+{% csrf_token %}
+Name: <input type="text" name="name"><br>
+DOB: <input type="date" name="date_of_birth"><br>
+Gender: <input type="radio" name="gender"><br>
+<input type="submit" value="Create profile">
+</form>
