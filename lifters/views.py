@@ -31,10 +31,6 @@ def results(request):
 
     return render(request, 'lifters/index.html', context)
 
-def update(request):
-    ''' Update athlete attempts '''
-    pass
-
 def create(request):
     ''' Create athlete profile '''
 
@@ -53,3 +49,14 @@ def create(request):
 def delete(request):
     ''' Delete athlete profile '''
     pass
+
+def update(request):
+    ''' Update athlete attempts '''
+    pass
+
+def clear(request):
+    ''' Clear all athletes from database '''
+
+    Athlete.objects.all().delete()
+
+    return HttpResponseRedirect(reverse('lifters:admin'))
