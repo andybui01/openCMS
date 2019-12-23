@@ -1,7 +1,5 @@
 {% if athletes_list %}
-
     <table>
-
         <tr>
                 <td>Name</td>
                 <td>Year</td>
@@ -17,9 +15,13 @@
                 <td>{{ athlete.gender }}</td>
                 <td>{{ athlete.bodyweight }}</td>
                 <td>{{ athlete.affiliation }}</td>
+                <td>
+                    <form action="{% url 'lifters:remove' athlete.id %}" method="delete">
+                        <input type="submit" onclick="return confirm('Are you sure?')" value="Remove">
+                    </form>
+                </td>
             </tr>
         {% endfor %}
-
     </table>
 {% else %}
     <p> No athletes to show! </p>

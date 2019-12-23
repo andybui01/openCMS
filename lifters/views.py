@@ -46,9 +46,13 @@ def create(request):
 
     return HttpResponseRedirect(reverse('lifters:admin'))
 
-def delete(request):
-    ''' Delete athlete profile '''
-    pass
+def remove(request, athlete_id):
+    ''' Remove athlete profile '''
+    
+    athlete = get_object_or_404(Athlete, pk=athlete_id)
+    athlete.delete()
+
+    return HttpResponseRedirect(reverse('lifters:admin'))
 
 def update(request):
     ''' Update athlete attempts '''

@@ -7,5 +7,6 @@ urlpatterns = [
     path('', views.results, name='results'),
     path('admin/', views.admin, name='admin'),
     path('create/', views.create, name='create'),
-    path('clear/', views.clear, name='clear')
+    path('clear/', views.clear, name='clear'),
+    path('<int:athlete_id>/remove/', views.remove, name='remove')
 ]
