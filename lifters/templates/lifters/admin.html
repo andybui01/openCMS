@@ -1,9 +1,42 @@
+{% if athletes_list %}
+
+    <table>
+
+        <tr>
+                <td>Name</td>
+                <td>Year</td>
+                <td>Gender</td>
+                <td>BW</td>
+                <td>Affiliation</td>
+        </tr>
+
+        {% for athlete in athletes_list %}
+            <tr>
+                <td>{{ athlete.name }}</td>
+                <td>{{ athlete.date_of_birth.year }}</td>
+                <td>{{ athlete.gender }}</td>
+                <td>{{ athlete.bodyweight }}</td>
+                <td>{{ athlete.affiliation }}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+{% else %}
+    <p> No athletes to show! </p>
+{% endif %}
+
 <h1>Create athlete profile</h1>
 
-<form action="/lifters/create/" method="post">
+<form action="{% url 'lifters:create' %}" method="post">
 {% csrf_token %}
 Name: <input type="text" name="name"><br>
 DOB: <input type="date" name="date_of_birth"><br>
-Gender: <input type="radio" name="gender"><br>
+Gender: <select name="gender">
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+</select>
+<br>
+Bodyweight: <input type="number" step="0.01" name="bodyweight"><br>
+Affiliation: <input type="text" maxlength="3" name="affiliation"><br>
 <input type="submit" value="Create profile">
 </form>

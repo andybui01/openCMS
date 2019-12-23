@@ -1,4 +1,4 @@
-{% if lifters_list %}
+{% if athletes_list %}
 
     <table>
 
@@ -10,17 +10,17 @@
                 <td>Affiliation</td>
         </tr>
 
-        {% for lifter in lifters_list %}
+        {% for athlete in athletes_list %}
             <tr>
-                <td>{{ lifter.name }}</td>
-                <td>{{ lifter.date_of_birth.year }}</td>
-                <td>{{ lifter.gender }}</td>
-                <td>{{ lifter.bodyweight }}</td>
-                <td>{{ lifter.affiliation }}</td>
+                <td>{{ athlete.name }}</td>
+                <td>{{ athlete.date_of_birth.year }}</td>
+                <td>{{ athlete.gender }}</td>
+                <td>{{ athlete.bodyweight }}</td>
+                <td>{{ athlete.affiliation }}</td>
             </tr>
         {% endfor %}
 
     </table>
 {% else %}
-    <p> No lifters to show! </p>
+    <p> No athletes to show! </p>
 {% endif %}
