@@ -1,0 +1,26 @@
+{% if athletes_list %}
+
+    <table>
+
+        <tr>
+                <td>Name</td>
+                <td>Year</td>
+                <td>Gender</td>
+                <td>BW</td>
+                <td>Affiliation</td>
+        </tr>
+
+        {% for athlete in athletes_list %}
+            <tr>
+                <td>{{ athlete.name }}</td>
+                <td>{{ athlete.date_of_birth.year }}</td>
+                <td>{{ athlete.gender }}</td>
+                <td>{{ athlete.bodyweight }}</td>
+                <td>{{ athlete.affiliation }}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+{% else %}
+    <p> No athletes to show! </p>
+{% endif %}

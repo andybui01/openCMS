@@ -1,0 +1,19 @@
+
+<h1>{{ meet_name }}</h1>
+{% if sessions_list %}
+    <table>
+        <tr>
+                <td>Session</td>
+                <td>Start time</td>
+        </tr>
+
+        {% for session in sessions_list %}
+            <tr>
+                <td><a href="{% url 'meet:session:index' meet.id session.id%}">{{ session }}</a></td>
+                <td>{{ session.start_time }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p> No sessions to show! </p>
+{% endif %}

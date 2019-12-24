@@ -1,35 +1,18 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect
-from django.template import loader
 from django.urls import reverse
 
-from .models import Athlete, Lift
+from ..models import Session, Athlete, Lift
 
-
-def admin(request):
-    ''' Admin page for meets '''
+def details(request, athlete_id):
+    ''' Return details of an athlete '''
+    athlete = get_object_or_404(Athlete, pk=athlete_id)
     
-    # Return list of dictionaries
-    athletes_list = list(Athlete.objects.all().values())
-
     context = {
-        'athletes_list': athletes_list
+        'athlete': athlete.get_dict()
     }
 
-
-    return render(request, 'lifters/admin.html', context)
-
-def results(request):
-    ''' Return results of all athletes in a weightclass '''
-
-    # Return list of dictionaries
-    athletes_list = list(Athlete.objects.all().values())
-
-    context = {
-        'athletes_list': athletes_list
-    }
-
-    return render(request, 'lifters/index.html', context)
+    return render(request, 'lifters/details.html', context)
 
 def create(request):
     ''' Create athlete profile '''
@@ -54,13 +37,6 @@ def remove(request, athlete_id):
 
     return HttpResponseRedirect(reverse('lifters:admin'))
 
-def update(request):
+def update(request, athlete_id):
     ''' Update athlete attempts '''
     pass
-
-def clear(request):
-    ''' Clear all athletes from database '''
-
-    Athlete.objects.all().delete()
-
-    return HttpResponseRedirect(reverse('lifters:admin'))

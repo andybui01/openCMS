@@ -16,7 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+app_name='opencms'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('lifters/', include('lifters.urls'))
+    path('lifters/', include('lifters.urls')),
+    path('meet/<int:meet_id>/', include('meet.urls', namespace='meet'))
 ]
