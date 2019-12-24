@@ -1,0 +1,11 @@
+{% if athlete %}
+    <h1>{{ athlete.name|upper }}</h1>
+    <ul>
+        <li>DOB: {{athlete.date_of_birth }}</li>
+        <li>Gender: {{athlete.gender }}</li>
+        <li>Bodyweight: {{athlete.bodyweight }}</li>
+        <li>Affiliation: {{athlete.affiliation }}</li>
+    </ul>
+{% else %}
+    <p> Athlete details unavailable! </p>
+{% endif %}

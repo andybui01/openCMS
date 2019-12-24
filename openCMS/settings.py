@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'lifters.apps.LiftersConfig',
+    'meet.apps.MeetConfig',
+    'session.apps.SessionConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
