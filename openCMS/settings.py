@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'lifters.apps.LiftersConfig',
     'meet.apps.MeetConfig',
     'session.apps.SessionConfig',
+    'homepage.apps.HomepageConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
