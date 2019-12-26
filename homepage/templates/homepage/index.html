@@ -1,0 +1,9 @@
+{% extends "homepage/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <form action="{% url 'homepage:redirect-meet' %}" method="get">
+        {{ form | crispy}}
+        <input type="submit" value="Proceed" class="btn btn-primary">
+    </form>
+{% endblock content %}
