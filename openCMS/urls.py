@@ -19,6 +19,7 @@ from django.urls import path, include
 app_name='opencms'
 
 urlpatterns = [
+    path('', include("django.contrib.auth.urls")),
     path('', include('homepage.urls')),
     path('admin/', admin.site.urls),
     path('lifters/', include('lifters.urls')),

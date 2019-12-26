@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'main.apps.MainConfig',
     'crispy_forms',
     'lifters.apps.LiftersConfig',
     'meet.apps.MeetConfig',

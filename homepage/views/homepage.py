@@ -4,13 +4,14 @@ from django.urls import reverse
 
 from ..forms import MeetForm
 
-# Create your views here.
+
 def index(request):
     ''' Landing page for openCMS '''
     form = MeetForm()
     return render(request, 'homepage/index.html', {'form': form})
-
+    
 def redirect_meet(request):
+    ''' Redirect to meet page specified by meet_id '''
     meet_id = request.GET['meet_id']
     return HttpResponseRedirect(reverse('meet:index', args=(meet_id)))
 
