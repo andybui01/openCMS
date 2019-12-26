@@ -2,9 +2,6 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 
-from django import template
-register = template.Library()
-
 from ..models import Meet
 
 def index(request, meet_id):

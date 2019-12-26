@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'crispy_forms',
     'lifters.apps.LiftersConfig',
     'meet.apps.MeetConfig',
     'session.apps.SessionConfig',
@@ -122,3 +123,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# crispy forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
