@@ -27,7 +27,7 @@
                         <form class="form-inline" action="{% url 'homepage:add' %}" method="post">
                             {% csrf_token %}
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Meet name" name="name">
+                                <input type="text" class="form-control" placeholder="Meet name" name="name" required>
                                 <span class="input-group-btn">
                                 <button type="submit" class="btn btn-primary">Add</button>
                             </div>

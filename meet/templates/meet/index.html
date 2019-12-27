@@ -26,6 +26,6 @@
 {% endif %}
 
 {% if user.is_authenticated %}
-    <a href="{% url 'meet:add' %}"><button class="btn btn-primary">Create a session</button></a>
+    <a href="{% url 'meet:display_add_form' meet.id %}"><button class="btn btn-primary">Create a session</button></a>
 {% endif %}
 {% endblock %}
