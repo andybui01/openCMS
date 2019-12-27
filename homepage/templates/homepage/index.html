@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <form action="{% url 'homepage:redirect-meet' %}" method="get">
+    <form action="{% url 'homepage:redirect_meet' %}" method="get">
         {{ form|crispy }}
         <p>Meet admin? Login <a href="/login">here</a></p>
         <button type="submit" class="btn btn-primary">Proceed</button>

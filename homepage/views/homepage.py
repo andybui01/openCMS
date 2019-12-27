@@ -1,3 +1,4 @@
+from django.contrib.auth.views import LoginView
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -21,7 +22,7 @@ def admin(request):
         }
         return render(request, 'homepage/admin.html', context)
     else:
-        return HttpResponseRedirect(reverse('homepage:index'))
+        return HttpResponseRedirect(reverse('homepage:login'))
 
 def redirect_meet(request):
     ''' Redirect to meet page specified by meet_id '''

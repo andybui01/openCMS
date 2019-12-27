@@ -1,23 +1,34 @@
 {% extends 'main/base.html'%}
 
 {% block content %}
-<h2>Admin</h2>
-{% if meet_list %}
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Meet</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for meet in meet_list %}
-            <tr>
-                <th scope="row"><a href="{% url 'meet:index' meet.id %}">{{ meet }}</a></th>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p> No meets to show, create one!</p>
-{% endif %}
+    <h2>Admin</h2>
+    {% if meet_list %}
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Meet</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for meet in meet_list %}
+                <tr>
+                    <th scope="row"><a href="{% url 'meet:index' meet.id %}">{{ meet }}</a></th>
+                </tr>
+            {% endfor %}
+                <tr>
+                    <th>
+                        <form class="form-inline">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Meet name">
+                                <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </div>
+                        </form>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    {% else %}
+        <p> No meets to show, create one!</p>
+    {% endif %}
 {% endblock %}
