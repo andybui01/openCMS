@@ -9,6 +9,7 @@
                 <th scope="col">Session</th>
                 <th scope="col">Start time</th>
                 <th scope="col"># Lifters</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -17,6 +18,11 @@
                 <th scope="row"><a href="{% url 'meet:session:index' meet.id session.id%}">{{ session }}</a></th>
                 <td>{{ session.start_time }}</td>
                 <td>{{ session.athlete_set.count }}</td>
+                <td>
+                    <form action="{% url 'meet:session:delete_session' meet.id session.id %}" method="delete">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
             </tr>
         {% endfor %}
         </tbody>

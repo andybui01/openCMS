@@ -19,3 +19,11 @@ def index(request, meet_id, session_id):
     }
 
     return render(request, 'session/index.html', context)
+
+def delete(request, meet_id, session_id):
+    ''' Delete a session from a meet '''
+    user = request.user
+    session = get_object_or_404(Session, pk=session_id)
+    if user.is_authenticated and session.meet.user == user:
+        session.delete()
+        return HttpResponseRedirect(reverse('meet:index', args=[meet_id]))

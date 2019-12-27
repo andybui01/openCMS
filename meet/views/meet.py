@@ -23,7 +23,7 @@ def add(request, meet_id):
     meet = get_object_or_404(Meet, pk=meet_id)
     meet.session_set.create(
         bodyweight=request.POST['bodyweight'],
-        letter=request.POST['letter'],
+        letter=request.POST['letter'].upper(),
         start_time=request.POST['start_time']
     )
     return HttpResponseRedirect(reverse('meet:index', args=[meet_id]))
