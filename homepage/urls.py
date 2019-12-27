@@ -8,6 +8,7 @@ urlpatterns = [
     path('', homepage.index, name='index'),
     path('login/', auth_views.LoginView.as_view(redirect_authenticated_user=True), name='login'),
     path('admin/', homepage.admin, name="admin"),
-    path('test', homepage.test, name='test'),
+    path('admin/add/', homepage.add, name="add"),
+    path('test/', homepage.test, name='test'),
     path('redirect-meet/', homepage.redirect_meet, name="redirect_meet")
 ]

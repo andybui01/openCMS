@@ -17,7 +17,10 @@ def index(request, meet_id):
 
     return render(request, 'meet/index.html', context)
 
-def admin(request, **kwargs):
-    ''' Admin page for meets '''
-    return HttpResponse("Works!")
+def delete(request, meet_id):
+    ''' Delete meet with id: meet_id '''
+    
+    meet = get_object_or_404(Meet, pk=meet_id)
+    meet.delete()
 
+    return HttpResponseRedirect(reverse('homepage:admin'))

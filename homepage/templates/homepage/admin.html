@@ -6,20 +6,28 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">Meet</th>
+                    <th scope="col">ID</th>
+                    <th scope="col" colspan="2">Meet</th>
                 </tr>
             </thead>
             <tbody>
             {% for meet in meet_list %}
                 <tr>
-                    <th scope="row"><a href="{% url 'meet:index' meet.id %}">{{ meet }}</a></th>
+                    <th>{{ meet.id }}</th>
+                    <td scope="row"><a href="{% url 'meet:index' meet.id %}">{{ meet }}</a></td>
+                    <td>
+                        <form action="{% url 'meet:delete' meet.id %}" method="delete">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             {% endfor %}
                 <tr>
-                    <th>
-                        <form class="form-inline">
+                    <th colspan="3">
+                        <form class="form-inline" action="{% url 'homepage:add' %}" method="post">
+                            {% csrf_token %}
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Meet name">
+                                <input type="text" class="form-control" placeholder="Meet name" name="name">
                                 <span class="input-group-btn">
                                 <button type="submit" class="btn btn-primary">Add</button>
                             </div>
