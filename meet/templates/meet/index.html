@@ -1,13 +1,14 @@
 {% extends 'main/base.html'%}
 
 {% block content %}
-<h2>{{ meet.name }}</h2>
+<h2>{{ meet.name }} <span class="text-muted">#{{ meet.id }}</span></h2>
 {% if sessions_list %}
     <table class="table table-hover">
         <thead>
             <tr>
                 <th scope="col">Session</th>
                 <th scope="col">Start time</th>
+                <th scope="col"># Lifters</th>
             </tr>
         </thead>
         <tbody>
@@ -15,6 +16,7 @@
             <tr>
                 <th scope="row"><a href="{% url 'meet:session:index' meet.id session.id%}">{{ session }}</a></th>
                 <td>{{ session.start_time }}</td>
+                <td>{{ session.athlete_set.count }}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -24,6 +26,6 @@
 {% endif %}
 
 {% if user.is_authenticated %}
-    <p>You're logged in!</p>
+    <a href="{% url 'meet:add' %}"><button class="btn btn-primary">Create a session</button></a>
 {% endif %}
 {% endblock %}
