@@ -28,4 +28,4 @@ def delete(request, meet_id, session_id):
         session.delete()
         return HttpResponseRedirect(reverse('meet:index', args=[meet_id]))
     else:
-        return Http404()
+        raise Http404()

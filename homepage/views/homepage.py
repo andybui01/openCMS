@@ -19,7 +19,7 @@ def add(request):
         current_user.meet_set.create(name=request.POST['name'])
         return HttpResponseRedirect(reverse('homepage:admin'))
     else:
-        return Http404()
+        raise Http404()
 
 def admin(request):
     ''' Admin page for users to manage their meets '''

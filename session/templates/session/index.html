@@ -1,3 +1,6 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
 <h1>{{ session_name }}</h1>
 {% if athletes_list %}
     <table>
@@ -23,3 +26,4 @@
 {% else %}
     <p> No athletes to show for the {{session_name}} session! </p>
 {% endif %}
+{% endblock %}
