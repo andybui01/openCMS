@@ -27,3 +27,5 @@ def delete(request, meet_id, session_id):
     if user.is_authenticated and session.meet.user == user:
         session.delete()
         return HttpResponseRedirect(reverse('meet:index', args=[meet_id]))
+    else:
+        return Http404()

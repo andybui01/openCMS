@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 
 from ..models import Meet
@@ -31,10 +31,16 @@ def add(request, meet_id):
 def delete(request, meet_id):
     ''' Delete meet with id: meet_id '''
     
-    meet = get_object_or_404(Meet, pk=meet_id)
-    meet.delete()
 
-    return HttpResponseRedirect(reverse('homepage:admin'))
+
+
+    user = request.user
+    meet = get_object_or_404(Meet, pk=meet_id)
+    if user.is_authenticated and meet.user == user:
+        meet.delete()
+        return HttpResponseRedirect(reverse('homepage:admin'))
+    else:
+        return Http404()
 
 def display_add_form(request, meet_id):
     ''' View to render form to create a session '''
