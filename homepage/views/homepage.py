@@ -10,6 +10,19 @@ def index(request):
     form = MeetForm()
     return render(request, 'homepage/index.html', {'form': form})
     
+def admin(request):
+    ''' Admin page for users to manage their meets '''
+    current_user = request.user
+
+    if current_user.is_authenticated:
+        meet_list = current_user.meet_set.all()
+        context = {
+            'meet_list':meet_list
+        }
+        return render(request, 'homepage/admin.html', context)
+    else:
+        return HttpResponseRedirect(reverse('homepage:index'))
+
 def redirect_meet(request):
     ''' Redirect to meet page specified by meet_id '''
     meet_id = request.GET['meet_id']
