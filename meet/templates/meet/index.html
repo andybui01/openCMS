@@ -1,19 +1,25 @@
+{% extends 'main/base.html'%}
 
+{% block content %}
 <h1>{{ meet_name }}</h1>
 {% if sessions_list %}
-    <table>
-        <tr>
-                <td>Session</td>
-                <td>Start time</td>
-        </tr>
-
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Session</th>
+                <th scope="col">Start time</th>
+            </tr>
+        </thead>
+        <tbody>
         {% for session in sessions_list %}
             <tr>
-                <td><a href="{% url 'meet:session:index' meet.id session.id%}">{{ session }}</a></td>
+                <th scope="row"><a href="{% url 'meet:session:index' meet.id session.id%}">{{ session }}</a></th>
                 <td>{{ session.start_time }}</td>
             </tr>
         {% endfor %}
+        </tbody>
     </table>
 {% else %}
     <p> No sessions to show! </p>
 {% endif %}
+{% endblock %}
