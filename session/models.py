@@ -26,3 +26,4 @@ class Lift(models.Model):
     attempt = models.IntegerField(default=1)
     weight = models.IntegerField(default=0)
     result = models.NullBooleanField(default=None)
+    changes = models.IntegerField(default=0)
