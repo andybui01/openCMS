@@ -14,23 +14,25 @@
         </thead>
         <tbody>
         {% if sessions_list %}
-        {% for session in sessions_list %}
-            <tr>
-                <th scope="row"><a href="{% url 'meet:session:index' meet.id session.id%}">{{ session }}</a></th>
-                <td>{{ session.start_time }}</td>
-                <td>{{ session.athlete_set.count }}</td>
-                {% if user.is_authenticated %}
-                <td>
-                    <form action="{% url 'meet:session:delete_session' meet.id session.id %}" method="delete">
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                    </form>
-                </td>
-                {% endif %}
-            </tr>
-        {% endfor %}
+            {% for session in sessions_list %}
+                <tr>
+                    <th scope="row"><a href="{% url 'meet:session:index' meet.id session.id%}">{{ session }}</a></th>
+                    <td>{{ session.start_time }}</td>
+                    <td>{{ session.athlete_set.count }}</td>
+                    {% if user.is_authenticated %}
+                    <td>
+                        <form action="{% url 'meet:session:delete_session' meet.id session.id %}" method="delete">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
         {% else %}
+            <tr>
                 <td colspan="3"> No sessions to show! </td>
-            {% endif %}
+            </tr>
+        {% endif %}
             <tr>
                 <th colspan="3">
                     {% if user.is_authenticated %}
