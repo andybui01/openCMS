@@ -18,7 +18,7 @@ def index(request, meet_id):
 
     return render(request, 'meet/index.html', context)
 
-def add(request, meet_id):
+def session_add(request, meet_id):
     ''' Add session to meet specified by meet_id '''
     meet = get_object_or_404(Meet, pk=meet_id)
     meet.session_set.create(
@@ -28,7 +28,7 @@ def add(request, meet_id):
     )
     return HttpResponseRedirect(reverse('meet:index', args=[meet_id]))
 
-def delete(request, meet_id):
+def meet_delete(request, meet_id):
     ''' Delete meet with id: meet_id '''
     user = request.user
     meet = get_object_or_404(Meet, pk=meet_id)

@@ -5,7 +5,8 @@ app_name='session'
 
 urlpatterns = [
     path('', session.index, name='index'),
-    path('delete/', session.delete, name="delete_session"),
+    path('delete/', session.session_delete, name="session_delete"),
     path('add/', session.athlete_add, name="athlete_add"),
-    path('add-athlete/', session.display_athlete_add, name="display_athlete_add")
+    path('add-athlete/', session.display_athlete_add, name="display_athlete_add"),
+    path('delete/<int:athlete_id>/', session.athlete_delete, name="athlete_delete")
 ]

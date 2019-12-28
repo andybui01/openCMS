@@ -11,7 +11,7 @@ def index(request):
     form = MeetForm()
     return render(request, 'homepage/index.html', {'form': form})
     
-def add(request):
+def meet_add(request):
     ''' Create meet and associate with user '''
     current_user = request.user
 

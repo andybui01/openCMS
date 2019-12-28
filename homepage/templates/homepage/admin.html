@@ -16,7 +16,7 @@
                     <td class="text-muted">{{ meet.id }}</td>
                     <th scope="row"><a href="{% url 'meet:index' meet.id %}">{{ meet }}</a></th>
                     <td>
-                        <form action="{% url 'meet:delete' meet.id %}" method="delete">
+                        <form action="{% url 'meet:meet_delete' meet.id %}" method="delete">
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                         </form>
                     </td>
@@ -24,7 +24,7 @@
             {% endfor %}
                 <tr>
                     <th colspan="3">
-                        <form class="form-inline" action="{% url 'homepage:add' %}" method="post">
+                        <form class="form-inline" action="{% url 'homepage:meet_add' %}" method="post">
                             {% csrf_token %}
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Meet name" name="name" required>

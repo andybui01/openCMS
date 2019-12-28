@@ -21,7 +21,7 @@
                     <td>{{ session.athlete_set.count }}</td>
                     {% if user.is_authenticated %}
                     <td>
-                        <form action="{% url 'meet:session:delete_session' meet.id session.id %}" method="delete">
+                        <form action="{% url 'meet:session:session_delete' meet.id session.id %}" method="delete">
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                         </form>
                     </td>

@@ -21,7 +21,7 @@ def index(request, meet_id, session_id):
 
     return render(request, 'session/index.html', context)
 
-def delete(request, meet_id, session_id):
+def session_delete(request, meet_id, session_id):
     ''' Delete a session from a meet '''
     user = request.user
     session = get_object_or_404(Session, pk=session_id)
@@ -41,8 +41,9 @@ def athlete_add(request, meet_id, session_id):
             date_of_birth = request.POST['date_of_birth'],
             gender = request.POST['gender'],
             bodyweight = request.POST['bodyweight'],
-            affiliation = request.POST['affiliation']
+            affiliation = request.POST['affiliation'].upper()
         )
+        return HttpResponseRedirect(reverse('meet:session:index', args=[meet_id,session_id]))
     else:
         raise Http404()
 
@@ -62,3 +63,26 @@ def display_athlete_add(request, meet_id, session_id):
         return render(request, 'session/add_athlete.html', context)
     else:
         raise Http404()
+
+def athlete_delete(request, **kwargs):
+    ''' Delete athlete from session and meet '''
+    user = request.user
+    session = get_object_or_404(Session, pk=kwargs['session_id'])
+
+    if user.is_authenticated and session.meet.user == user:
+        try:
+            athlete = session.athlete_set.get(pk=kwargs['athlete_id'])
+            athlete.delete()
+        except:
+            return Http404()
+        return HttpResponseRedirect(
+            reverse(
+                'meet:session:index',
+                args=[
+                    kwargs['meet_id'],
+                    kwargs['session_id']
+                ]
+            )
+        )
+    else:
+        return Http404()

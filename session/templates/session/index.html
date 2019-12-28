@@ -4,13 +4,13 @@
 <h1>{{ session }}</h1>
 
     <table class="table">
-        <thread>
+        <thead>
             <tr>
                 <th>Name</th>
                 <th>Year</th>
                 <th>Gender</th>
                 <th>BW</th>
-                <th>Affiliation</th>
+                <th colspan="2">Affiliation</th>
             </tr>
         </thead>
         
@@ -31,23 +31,23 @@
 
                     <td>{{ athlete.bodyweight }}</td>
                     <td>{{ athlete.affiliation }}</td>
+                    {% if user.is_authenticated %}
+                    <td>
+                        <form action="{% url 'meet:session:athlete_delete' session.meet.id session.id athlete.id%}" method="delete">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                    {% endif %}
                 </tr>
                 
             {% endfor %}
-                <tr>
-                    <th colspan="5">
-                    {% if user.is_authenticated %}
-                        <a href="{% url 'meet:session:display_athlete_add' session.meet.id session.id %}"><button class="btn btn-primary btn-sm">Add a lifter</button></a>
-                    {% endif %}
-                    </th>
-                </tr>
         {% else %}
             <tr><td> No athletes to show for the {{session}} session! </td></tr>
         {% endif %}
             <tr>
-                <th colspan="4">
+                <th colspan="5">
                     {% if user.is_authenticated %}
-                    <a href="{% url 'meet:session:display_athlete_add' session.meet.id session.id %}"><button class="btn btn-primary btn-sm">Add athlete</button></a>
+                    <a href="{% url 'meet:session:display_athlete_add' session.meet.id session.id %}"><button class="btn btn-primary btn-sm">Add a lifter</button></a>
                     {% endif %}
                 <th>
             </tr>
