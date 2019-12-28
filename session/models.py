@@ -20,6 +20,9 @@ class Athlete(models.Model):
 
     def __str__(self):
         return self.name
-    
-    def get_dict(self):
-        return model_to_dict(self)
+
+class Lift(models.Model):
+    athlete = models.ForeignKey("Athlete", on_delete=models.CASCADE)
+    attempt = models.IntegerField(default=1)
+    weight = models.IntegerField(default=0)
+    result = models.NullBooleanField(default=None)

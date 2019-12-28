@@ -1,16 +1,16 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-<h1>{{ session }}</h1>
+<h2>{{ session }}</h2>
 
-    <table class="table">
+    <table class="table table-sm">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>Year</th>
                 <th>Gender</th>
                 <th>BW</th>
-                <th colspan="2">Affiliation</th>
+                <th colspan="3">Affiliation</th>
             </tr>
         </thead>
         
@@ -32,6 +32,39 @@
                     <td>{{ athlete.bodyweight }}</td>
                     <td>{{ athlete.affiliation }}</td>
                     {% if user.is_authenticated %}
+                    {% comment %} Edit athlete attempts {% endcomment %}
+                    <td>
+                        <!-- Button to Open the Modal -->
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editFormModal">
+                            Attempt
+                        </button>
+
+                        <!-- editFormModal -->
+                        <div class="modal" id="editFormModal">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">{{ athlete }} - Edit attempts</h4>
+                                    </div>
+
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        Modal body..
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" data-dismiss="modal">Update</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                    {% comment %} Delete athlete {% endcomment %}
                     <td>
                         <form action="{% url 'meet:session:athlete_delete' session.meet.id session.id athlete.id%}" method="delete">
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
