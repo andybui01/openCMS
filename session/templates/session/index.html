@@ -2,8 +2,8 @@
 
 {% block content %}
 <h1>{{ session }}</h1>
-{% if athletes_list %}
-    <table class="table table-hover">
+
+    <table class="table">
         <thread>
             <tr>
                 <th>Name</th>
@@ -15,36 +15,45 @@
         </thead>
         
         <tbody>
-        {% for athlete in athletes_list %}
-            <tr>
-                <th><a href="#">{{ athlete.name }}</a></th>
-                <td>{{ athlete.date_of_birth.year }}</td>
+        {% if athletes_list %}
+            {% for athlete in athletes_list %}
+                <tr>
+                    <th><a href="#">{{ athlete.name }}</a></th>
+                    <td>{{ athlete.date_of_birth.year }}</td>
 
-                <td>
-                    {% if athlete.gender %}
-                        Male
-                    {% else %}
-                        Female
+                    <td>
+                        {% if athlete.gender %}
+                            Male
+                        {% else %}
+                            Female
+                        {% endif %}
+                    </td>
+
+                    <td>{{ athlete.bodyweight }}</td>
+                    <td>{{ athlete.affiliation }}</td>
+                </tr>
+                
+            {% endfor %}
+                <tr>
+                    <th colspan="5">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'meet:session:display_athlete_add' session.meet.id session.id %}"><button class="btn btn-primary btn-sm">Add a lifter</button></a>
                     {% endif %}
-                </td>
-
-                <td>{{ athlete.bodyweight }}</td>
-                <td>{{ athlete.affiliation }}</td>
-            </tr>
-            
-        {% endfor %}
+                    </th>
+                </tr>
+        {% else %}
+            <tr><td> No athletes to show for the {{session}} session! </td></tr>
+        {% endif %}
             <tr>
-                <th colspan="5">
-                {% if user.is_authenticated %}
-                    <a href="{% url 'meet:session:display_athlete_add' session.meet.id session.id %}"><button class="btn btn-primary btn-sm">Add a lifter</button></a>
-                {% endif %}
-                </th>
+                <th colspan="4">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'meet:session:display_athlete_add' session.meet.id session.id %}"><button class="btn btn-primary btn-sm">Create a session</button></a>
+                    {% endif %}
+                <th>
             </tr>
         <tbody>
 
     </table>
-{% else %}
-    <p> No athletes to show for the {{session_name}} session! </p>
-{% endif %}
+
 
 {% endblock %}
