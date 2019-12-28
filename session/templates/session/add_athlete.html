@@ -1,0 +1,15 @@
+{% extends "main/base.html" %}
+
+{% block title %}
+Add Athlete 
+{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<form class="form-group" action="{% url 'meet:session:athlete_add' session.meet.id session.id%}" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+{% endblock %}

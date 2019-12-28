@@ -2,8 +2,8 @@
 
 {% block content %}
 <h2>{{ meet.name }} <span class="text-muted">#{{ meet.id }}</span></h2>
-{% if sessions_list %}
-    <table class="table table-hover">
+
+    <table class="table">
         <thead>
             <tr>
                 <th scope="col">Session</th>
@@ -13,6 +13,7 @@
             </tr>
         </thead>
         <tbody>
+        {% if sessions_list %}
         {% for session in sessions_list %}
             <tr>
                 <th scope="row"><a href="{% url 'meet:session:index' meet.id session.id%}">{{ session }}</a></th>
@@ -27,13 +28,21 @@
                 {% endif %}
             </tr>
         {% endfor %}
+        {% else %}
+                <td colspan="3"> No sessions to show! </td>
+            {% endif %}
+            <tr>
+                <th colspan="3">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'meet:display_add_form' meet.id %}"><button class="btn btn-primary btn-sm">Create a session</button></a>
+                    {% endif %}
+                <th>
+            </tr>
+            
         </tbody>
     </table>
-{% else %}
-    <p> No sessions to show! </p>
-{% endif %}
 
-{% if user.is_authenticated %}
-    <a href="{% url 'meet:display_add_form' meet.id %}"><button class="btn btn-primary">Create a session</button></a>
-{% endif %}
+    
+
+
 {% endblock %}
