@@ -36,13 +36,14 @@ def athlete_add(request, meet_id, session_id):
     session = get_object_or_404(Session, pk=session_id)
     user = request.user
     if user.is_authenticated and session.meet.user == user:
-        session.athlete_set.create(
+        athlete = session.athlete_set.create(
             name = request.POST['name'],
             date_of_birth = request.POST['date_of_birth'],
             gender = request.POST['gender'],
             bodyweight = request.POST['bodyweight'],
             affiliation = request.POST['affiliation'].upper()
         )
+        athlete.create_lifts()
         return HttpResponseRedirect(reverse('meet:session:index', args=[meet_id,session_id]))
     else:
         raise Http404()

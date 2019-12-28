@@ -20,6 +20,11 @@ class Athlete(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def create_lifts(self):
+        for i in range(1,7):
+            self.lift_set.create(attempt=i)
+        return
 
 class Lift(models.Model):
     athlete = models.ForeignKey("Athlete", on_delete=models.CASCADE)
