@@ -32,3 +32,6 @@ class Lift(models.Model):
     weight = models.IntegerField(default=0)
     result = models.NullBooleanField(default=None)
     changes = models.IntegerField(default=0)
+
+    def __str__(self):
+        return str(self.weight)
