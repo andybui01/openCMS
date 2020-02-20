@@ -29,7 +29,7 @@ class Athlete(models.Model):
 class Lift(models.Model):
     athlete = models.ForeignKey("Athlete", on_delete=models.CASCADE)
     attempt = models.IntegerField(default=1)
-    weight = models.IntegerField(default=0)
+    weight = models.IntegerField(default=-1)
     result = models.NullBooleanField(default=None)
     changes = models.IntegerField(default=0)
 
