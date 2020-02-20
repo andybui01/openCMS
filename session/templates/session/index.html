@@ -36,18 +36,20 @@
                     {% comment %} Edit athlete attempts {% endcomment %}
                     <td>
                         <!-- Button to Open the Modal -->
-                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#{{athlete.pk}}">
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#athlete-attempt-{{athlete.pk}}">
                             Attempt
                         </button>
 
-                        <!-- editFormModal -->
-                        <div class="modal" id="{{athlete.pk}}">
+                        <!-- AthleteAttemptModal -->
+                        <div class="modal" id="athlete-attempt-{{athlete.pk}}">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
 
                                     <!-- Modal Header -->
                                     <div class="modal-header">
                                         <h4 class="modal-title">{{ athlete }} - Edit attempts</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
 
                                     <!-- Modal Body -->
