@@ -25,6 +25,12 @@ class Athlete(models.Model):
         for i in range(1,7):
             self.lift_set.create(attempt=i)
         return
+    
+    def update_attempt(self, attempt, weight):
+        lift = self.lift_set.get(attempt=attempt)
+        lift.set_weight(weight)
+
+        return
 
 class Lift(models.Model):
     athlete = models.ForeignKey("Athlete", on_delete=models.CASCADE)
@@ -35,3 +41,7 @@ class Lift(models.Model):
 
     def __str__(self):
         return str(self.weight)
+
+    def set_weight(self, weight):
+        self.weight = weight
+        return

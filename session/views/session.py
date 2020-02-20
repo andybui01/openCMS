@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 
 from ..models import Session, Athlete
-from ..forms import CreateAthleteForm
+from ..forms import CreateAthleteForm, UpdateAthleteForm
 
 def index(request, meet_id, session_id):
     ''' Return results of all athletes in a weightclass '''
@@ -14,9 +14,12 @@ def index(request, meet_id, session_id):
 
     athletes_list = session.athlete_set.all()
 
+    form = UpdateAthleteForm()
+
     context = {
         'session': session,
-        'athletes_list': athletes_list
+        'athletes_list': athletes_list,
+        'form':form
     }
 
     return render(request, 'session/index.html', context)
@@ -74,6 +77,29 @@ def athlete_delete(request, **kwargs):
         try:
             athlete = session.athlete_set.get(pk=kwargs['athlete_id'])
             athlete.delete()
+        except:
+            return Http404()
+        return HttpResponseRedirect(
+            reverse(
+                'meet:session:index',
+                args=[
+                    kwargs['meet_id'],
+                    kwargs['session_id']
+                ]
+            )
+        )
+    else:
+        return Http404()
+
+def athlete_update(request, **kwargs):
+    ''' Update athlete attempt weights '''
+    user = request.user
+    session = get_object_or_404(Session, pk=kwargs['session_id'])
+
+    if user.is_authenticated and session.meet.user == user:
+        try:
+            athlete = session.athlete_set.get(pk=kwargs['athlete_id'])
+            athlete.update_attempt(1,2)
         except:
             return Http404()
         return HttpResponseRedirect(

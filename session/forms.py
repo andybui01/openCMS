@@ -30,4 +30,15 @@ class CreateAthleteForm(forms.Form):
         required=True,
         help_text="Max 3 letters")
 
+class UpdateAthleteForm(forms.Form):
+    ATTEMPT_CHOICES = (
+        (1, "SN1"),
+        (2, "SN2"),
+        (3, "SN3"),
+        (4, "CJ1"),
+        (5, "CJ2"),
+        (6, "CJ3")
+    )
+    attempt = forms.ChoiceField(label="", help_text="", choices=ATTEMPT_CHOICES)
+    weight = forms.IntegerField(label="", help_text="", required=True)
     

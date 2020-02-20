@@ -1,5 +1,7 @@
 {% extends 'main/base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
 <h2>{{ session }}</h2>
 
@@ -48,8 +50,6 @@
                                     <!-- Modal Header -->
                                     <div class="modal-header">
                                         <h4 class="modal-title">{{ athlete }} - Edit attempts</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                                        </button>
                                     </div>
 
                                     <!-- Modal Body -->
@@ -76,11 +76,27 @@
                                                 </tr> -->
                                             <tbody>
                                         </table>
+
+                                        <!-- Update attempts box -->
+                                        <form class="form-inline" action="{% url 'meet:session:athlete_update' session.meet.id session.id athlete.id %}" method="post">
+                                            {% csrf_token %}
+                                            {{ form | crispy }}
+                                            <button type="submit" class="btn btn-secondary">Update</button>
+                                        </form>
+                                        
+                                        <!-- <form class="form-inline" action="{% url 'homepage:meet_add' %}" method="post">
+                                            {% csrf_token %}
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Meet name" name="name" required>
+                                                <span class="input-group-btn">
+                                                <button type="submit" class="btn btn-primary">Add</button>
+                                            </div>
+                                        </form> -->
                                     </div>
 
                                     <!-- Modal footer -->
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-success" data-dismiss="modal">Update</button>
+                                        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
                                     </div>
 
                                 </div>
