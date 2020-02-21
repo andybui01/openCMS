@@ -99,17 +99,17 @@ def athlete_update(request, **kwargs):
     if user.is_authenticated and session.meet.user == user:
         try:
             athlete = session.athlete_set.get(pk=kwargs['athlete_id'])
-            athlete.update_attempt(1,2)
+            athlete.update_attempt(request.POST['attempt'], request.POST['weight'])
         except:
             return Http404()
-        return HttpResponseRedirect(
+        return HttpResponse(Redirect(
             reverse(
                 'meet:session:index',
                 args=[
                     kwargs['meet_id'],
                     kwargs['session_id']
                 ]
-            )
+            ))
         )
     else:
         return Http404()

@@ -29,6 +29,7 @@ class Athlete(models.Model):
     def update_attempt(self, attempt, weight):
         lift = self.lift_set.get(attempt=attempt)
         lift.set_weight(weight)
+        lift.save()
 
         return
 
@@ -44,4 +45,5 @@ class Lift(models.Model):
 
     def set_weight(self, weight):
         self.weight = weight
+        self.changes += 1
         return
