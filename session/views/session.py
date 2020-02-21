@@ -102,14 +102,14 @@ def athlete_update(request, **kwargs):
             athlete.update_attempt(request.POST['attempt'], request.POST['weight'])
         except:
             return Http404()
-        return HttpResponse(Redirect(
+        return HttpResponseRedirect(
             reverse(
                 'meet:session:index',
                 args=[
                     kwargs['meet_id'],
                     kwargs['session_id']
                 ]
-            ))
+            )
         )
     else:
         return Http404()
