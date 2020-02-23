@@ -21,7 +21,7 @@ class Athlete(models.Model):
     bodyweight = models.FloatField()
     affiliation = models.CharField(max_length=3)
     next_attempt = models.IntegerField(default=1)
-    next_weight = models.IntegerField(default=-1)
+    next_weight = models.IntegerField(default=999)
 
     def __str__(self):
         return self.name
@@ -43,7 +43,7 @@ class Athlete(models.Model):
 
     def get_next_lift(self):
         for i in range(1,4):
-            if self.lift_set.filter(attempt=self.next_attempt).filter(change=i).first().weight != -1:
+            if self.lift_set.filter(attempt=self.next_attempt).filter(change=i).first().weight != 999:
                 lift = self.lift_set.filter(attempt=self.next_attempt).filter(change=i).first()
             else:
                 break
@@ -62,7 +62,7 @@ class Athlete(models.Model):
 class Lift(models.Model):
     athlete = models.ForeignKey("Athlete", on_delete=models.CASCADE)
     attempt = models.IntegerField(default=1)
-    weight = models.IntegerField(default=-1)
+    weight = models.IntegerField(default=999)
     result = models.NullBooleanField(default=None)
     change = models.IntegerField(default=1)
 
