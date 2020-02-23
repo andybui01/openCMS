@@ -28,7 +28,8 @@ class Athlete(models.Model):
     
     def create_lifts(self):
         for i in range(1,7):
-            self.lift_set.create(attempt=i)
+            for j in range(1,4):
+                self.lift_set.create(attempt=i,change=j)
         return
     
     def update_attempt(self, attempt, weight):
@@ -49,7 +50,7 @@ class Lift(models.Model):
     attempt = models.IntegerField(default=1)
     weight = models.IntegerField(default=-1)
     result = models.NullBooleanField(default=None)
-    changes = models.IntegerField(default=0)
+    change = models.IntegerField(default=1)
 
     def __str__(self):
         return str(self.weight)
