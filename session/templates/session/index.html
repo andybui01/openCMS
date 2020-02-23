@@ -47,20 +47,20 @@
         {% for athlete in session.sorted_athlete_set %}
         <div id="info-{{athlete.pk}}" class="collapse" style="transition: none !important;" data-parent="#infobox">
             <h4>{{ athlete }}</h4>
-            <table class="table text-center">
+            <table class="table table-borderless text-center">
                 <thead>
-                    <tr>
+                    <tr class="bg-light">
                         <td colspan="1"></td>
                         <th class="text-center" style="width:50%" colspan="3">Snatch</th>
                         <th class="text-center" style="width:50%" colspan="3">Clean and Jerk</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr class="bg-light">
                     {% for lift in athlete.lift_set.all %}
                         {% if forloop.counter0|divisibleby:6 %}
                         </tr>
-                            <tr>
+                            <tr class="bg-light">
                                 {% if forloop.counter0 == 0 %}
                                     <td style="width:14.2857142857%">Declared weight</td>
                                 {% elif forloop.counter0 == 7 %}
@@ -70,13 +70,18 @@
                                 {% endif %}
 
                         {% endif %}
-                        <td style="width:14.2857142857%">
+                        <td class="btn-light" style="transform: rotate(0);width:14.2857142857%">
+                            <a class="stretched-link text-primary" href="#"></a>
+                            <!-- <div > -->
                             <!-- If weight is -1 (default), display --, else display the actual weight -->
+                            <span>
                             {% if lift.weight != -1 %}
                                 {{ lift }}
                             {% else %}
                                 --
                             {% endif %}
+                            </span>
+                            <!-- </div> -->
                         </td>
                     {% endfor %}
                     </tr>
