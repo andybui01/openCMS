@@ -63,26 +63,46 @@
                             <tr class="bg-light">
                                 {% if forloop.counter0 == 0 %}
                                     <td style="width:14.2857142857%">Declared weight</td>
-                                {% elif forloop.counter0 == 7 %}
+                                {% elif forloop.counter0 == 6 %}
                                     <td style="width:14.2857142857%">1st change</td>
                                 {% else %}
                                     <td style="width:14.2857142857%">2nd change</td>
                                 {% endif %}
 
                         {% endif %}
-                        <td class="btn-light" style="transform: rotate(0);width:14.2857142857%">
-                            <a class="stretched-link text-primary" href="#"></a>
-                            <!-- <div > -->
+                        <td class="btn-light" style="transform: rotate(0);width:14.2857142857%" >
+                            <a class="stretched-link text-primary" data-toggle="modal" data-target="#attempt-{{athlete.pk}}-{{lift.attempt}}-{{lift.change}}" href=""></a>
                             <!-- If weight is -1 (default), display --, else display the actual weight -->
-                            <span>
                             {% if lift.weight != -1 %}
                                 {{ lift }}
                             {% else %}
                                 --
                             {% endif %}
-                            </span>
-                            <!-- </div> -->
                         </td>
+                        <!-- UpdateAttemptModal -->
+                        <div class="modal" id="attempt-{{athlete.pk}}-{{lift.attempt}}-{{lift.change}}">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">attempt-{{athlete.pk}}-{{lift.attempt}}-{{lift.change}}</h4>
+                                    </div>
+
+                                    <!-- Modal Body -->
+                                    <div class="modal-body">
+                                        <!-- Update attempts box -->
+                                        <form class="form-inline" action="{% url 'meet:session:athlete_update' session.meet.id session.id athlete.id %}" method="post">
+                                            {% csrf_token %}
+                                            {{ form | crispy }}
+                                            <input type="hidden" name="attempt" value="{{lift.attempt}}">
+                                            <input type="hidden" name="change" value="{{lift.change}}">
+                                            <button type="submit" class="btn btn-secondary">Update</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     {% endfor %}
                     </tr>
                 </tbody>

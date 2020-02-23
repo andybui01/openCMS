@@ -78,7 +78,7 @@ def athlete_delete(request, **kwargs):
             athlete = session.athlete_set.get(pk=kwargs['athlete_id'])
             athlete.delete()
         except:
-            return Http404()
+            raise Http404()
         return HttpResponseRedirect(
             reverse(
                 'meet:session:manage',
@@ -89,7 +89,7 @@ def athlete_delete(request, **kwargs):
             )
         )
     else:
-        return Http404()
+        raise Http404()
 
 def athlete_update(request, **kwargs):
     ''' Update athlete attempt weights '''
@@ -97,13 +97,12 @@ def athlete_update(request, **kwargs):
     session = get_object_or_404(Session, pk=kwargs['session_id'])
 
     if user.is_authenticated and session.meet.user == user:
-        try:
-            athlete = session.athlete_set.get(pk=kwargs['athlete_id'])
-            athlete.update_attempt(request.POST['attempt'], request.POST['weight'])
-            print(athlete.next_weight)
-            athlete.save()
-        except:
-            return Http404()
+        # try:
+        athlete = session.athlete_set.get(pk=kwargs['athlete_id'])
+        athlete.update_attempt(request.POST['attempt'], request.POST['change'], request.POST['weight'])
+        athlete.save()
+        # except:
+        #     raise Http404()
         return HttpResponseRedirect(
             reverse(
                 'meet:session:index',
@@ -114,7 +113,7 @@ def athlete_update(request, **kwargs):
             )
         )
     else:
-        return Http404()
+        raise Http404()
 
 def manage(request, meet_id, session_id):
     ''' Return results of all athletes in a weightclass '''
