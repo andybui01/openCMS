@@ -5,6 +5,7 @@ app_name='session'
 
 urlpatterns = [
     path('', session.index, name='index'),
+    path('manage/', session.manage, name='manage'),
     path('delete/', session.session_delete, name="session_delete"),
     path('add/', session.athlete_add, name="athlete_add"),
     path('add-athlete/', session.display_athlete_add, name="display_athlete_add"),

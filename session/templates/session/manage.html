@@ -1,0 +1,133 @@
+{% extends 'main/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h2>{{ session }}</h2>
+
+    <table class="table table-hover table-bordered table-sm">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Year</th>
+                <th>Gender</th>
+                <th>BW</th>
+                <th>Affiliation</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        
+        <tbody>
+        {% if athletes_list %}
+            {% for athlete in athletes_list %}
+                <tr>
+                    <th><a href="#">{{ athlete.name }}</a></th>
+                    <td>{{ athlete.date_of_birth.year }}</td>
+
+                    <td>
+                        {% if athlete.gender %}
+                            Male
+                        {% else %}
+                            Female
+                        {% endif %}
+                    </td>
+
+                    <td>{{ athlete.bodyweight }}</td>
+                    <td>{{ athlete.affiliation }}</td>
+                    {% if user.is_authenticated %}
+                    {% comment %} Edit athlete attempts {% endcomment %}
+                    <td>
+                        <!-- Button to Open the Modal -->
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#athlete-attempt-{{athlete.pk}}">
+                            Attempt
+                        </button>
+
+                        <!-- AthleteAttemptModal -->
+                        <div class="modal" id="athlete-attempt-{{athlete.pk}}">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">{{ athlete }} - Edit attempts</h4>
+                                    </div>
+
+                                    <!-- Modal Body -->
+                                    <div class="modal-body">
+                                        <table class="table text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" style="width:50%" colspan="3">Snatch</th>
+                                                    <th class="text-center" style="width:50%" colspan="3">Clean and Jerk</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Attempt Weight -->
+                                                <tr>
+                                                    {% for lift in athlete.lift_set.all %}
+                                                            <td style="width:16.6666666667%">{{ lift }}</td style="width:16.6666666667%">
+                                                    {% endfor %}         
+                                                </tr>
+                                                <!-- Attempt Updates -->
+                                                <tr>
+                                                    {% for lift in athlete.lift_set.all %}
+                                                            <td style="width:16.6666666667%"><span class="text-secondary">#</span>{{ lift.changes }}/3</td style="width:16.6666666667%">
+                                                    {% endfor %}
+                                                </tr>
+                                            <tbody>
+                                        </table>
+
+                                        <!-- Update attempts box -->
+                                        <form class="form-inline" action="{% url 'meet:session:athlete_update' session.meet.id session.id athlete.id %}" method="post">
+                                            {% csrf_token %}
+                                            {{ form | crispy }}
+                                            <button type="submit" class="btn btn-secondary">Update</button>
+                                        </form>
+                                        
+                                        <!-- <form class="form-inline" action="{% url 'homepage:meet_add' %}" method="post">
+                                            {% csrf_token %}
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Meet name" name="name" required>
+                                                <span class="input-group-btn">
+                                                <button type="submit" class="btn btn-primary">Add</button>
+                                            </div>
+                                        </form> -->
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                    {% comment %} Delete athlete {% endcomment %}
+                    <td>
+                        <form action="{% url 'meet:session:athlete_delete' session.meet.id session.id athlete.id%}" method="delete">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                    {% endif %}
+                </tr>
+                
+            {% endfor %}
+        {% else %}
+            <tr><td colspan="6"> No athletes to show for the {{session}} session! </td></tr>
+        {% endif %}
+        <tbody>
+        <tfoot>
+            <tr>
+                <th colspan="6">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'meet:session:display_athlete_add' session.meet.id session.id %}"><button class="btn btn-primary btn-sm">Add a lifter</button></a>
+                    {% endif %}
+                <th>
+            </tr>
+        </tfoot>
+
+    </table>
+
+    {% endblock %}

@@ -9,6 +9,9 @@ class Session(models.Model):
 
     def __str__(self):
         return str(self.bodyweight) + self.letter
+    
+    def sorted_athlete_set(self):
+        return self.athlete_set.order_by('next_weight')
 
 class Athlete(models.Model):
     session = models.ForeignKey("Session", on_delete=models.CASCADE)
@@ -17,6 +20,8 @@ class Athlete(models.Model):
     gender = models.BooleanField()
     bodyweight = models.FloatField()
     affiliation = models.CharField(max_length=3)
+    next_attempt = models.IntegerField(default=1)
+    next_weight = models.IntegerField(default=-1)
 
     def __str__(self):
         return self.name
@@ -31,7 +36,13 @@ class Athlete(models.Model):
         lift.set_weight(weight)
         lift.save()
 
+        self.next_weight = weight
         return
+    
+    def get_next_lift(self):
+        lift = self.lift_set.get(attempt=self.next_attempt)
+
+        return lift
 
 class Lift(models.Model):
     athlete = models.ForeignKey("Athlete", on_delete=models.CASCADE)

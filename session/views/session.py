@@ -100,6 +100,8 @@ def athlete_update(request, **kwargs):
         try:
             athlete = session.athlete_set.get(pk=kwargs['athlete_id'])
             athlete.update_attempt(request.POST['attempt'], request.POST['weight'])
+            print(athlete.next_weight)
+            athlete.save()
         except:
             return Http404()
         return HttpResponseRedirect(
@@ -113,3 +115,22 @@ def athlete_update(request, **kwargs):
         )
     else:
         return Http404()
+
+def manage(request, meet_id, session_id):
+    ''' Return results of all athletes in a weightclass '''
+    session = get_object_or_404(Session, pk=session_id)
+
+    if session.meet.id != meet_id:
+        raise Http404("Session not found!")
+
+    athletes_list = session.athlete_set.all()
+
+    form = UpdateAthleteForm()
+
+    context = {
+        'session': session,
+        'athletes_list': athletes_list,
+        'form':form
+    }
+
+    return render(request, 'session/manage.html', context)
