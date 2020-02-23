@@ -14,16 +14,21 @@
         <div style="overflow-y:auto; max-height: 30rem;">
             {% if athletes_list %}
                 {% for athlete in session.sorted_athlete_set %}
-                    <div class="card bg-light mb-3" style="max-width: 18rem;">
-                        <div class="card-header">
-                            <a class="btn btn-link btn-sm" data-toggle="collapse" href="#info-{{athlete.pk}}">
-                                {{athlete}}
-                            </a>
-                        </div>
-                        <div class="card-body">
-                        <h5 class="card-title">{{ athlete.get_next_lift }}</h5>
-                        <p class="card-text">{{athlete.next_attempt | ordinal}} attempt</p>
-                        </div>
+                    <div class="card bg-light mb-3" style="max-width: 30rem;">
+                            <div class="card-body">
+                                <a class="stretched-link" data-toggle="collapse" href="#info-{{athlete.pk}}"></a>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-4 align-self-center">
+                                            <h4>{{ athlete.get_next_lift }}<span class="text-secondary">kg</span></h4>
+                                        </div>
+                                        <div class="col-8">
+                                            <a data-toggle="collapse" href="#info-{{athlete.pk}}">{{athlete}}</a><br>
+                                            <span>{{athlete.next_attempt | ordinal}} attempt</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                     </div>
                 {% endfor %}
             {% endif %}
