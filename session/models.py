@@ -27,8 +27,8 @@ class Athlete(models.Model):
         return self.name
     
     def create_lifts(self):
-        for i in range(1,7):
-            for j in range(1,4):
+        for j in range(1,4):
+            for i in range(1,7):
                 self.lift_set.create(attempt=i,change=j)
         return
     
@@ -41,9 +41,19 @@ class Athlete(models.Model):
         return
     
     def get_next_lift(self):
-        lift = self.lift_set.get(attempt=self.next_attempt)
+        lift = self.lift_set.filter(attempt=self.next_attempt).filter(change=1).first()
 
         return lift
+    
+    def get_first_change(self):
+        return self.lift_set.filter(change=1)
+    
+    def get_second_change(self):
+        return self.lift_set.filter(change=2)
+
+    def get_third_change(self):
+        return self.lift_set.filter(change=3)
+
 
 class Lift(models.Model):
     athlete = models.ForeignKey("Athlete", on_delete=models.CASCADE)
@@ -54,8 +64,3 @@ class Lift(models.Model):
 
     def __str__(self):
         return str(self.weight)
-
-    def set_weight(self, weight):
-        self.weight = weight
-        self.changes += 1
-        return
