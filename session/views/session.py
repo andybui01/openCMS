@@ -81,7 +81,7 @@ def athlete_delete(request, **kwargs):
             return Http404()
         return HttpResponseRedirect(
             reverse(
-                'meet:session:index',
+                'meet:session:manage',
                 args=[
                     kwargs['meet_id'],
                     kwargs['session_id']

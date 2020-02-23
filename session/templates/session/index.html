@@ -23,7 +23,7 @@
                                             <h4>{{ athlete.get_next_lift }}<span class="text-secondary">kg</span></h4>
                                         </div>
                                         <div class="col-8">
-                                            <a data-toggle="collapse" href="#info-{{athlete.pk}}">{{athlete}}</a><br>
+                                            <span class="text-primary">{{athlete}}</span><br>
                                             <span>{{athlete.next_attempt | ordinal}} attempt</span>
                                         </div>
                                     </div>
@@ -33,8 +33,6 @@
                 {% endfor %}
             {% endif %}
             </div>
-            <a href="#Foo" class="btn btn-default" data-toggle="collapse">Toggle Foo</a>
-
     </div>
 
     <div class="col-8" id="info-{{athlete.pk}}">
@@ -48,18 +46,15 @@
                         <th class="text-center" style="width:50%" colspan="3">Clean and Jerk</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- Attempt Weight -->
+                <tbody>            
                     <tr>
-                        {% for lift in athlete.lift_set.all %}
-                                <td style="width:16.6666666667%">{{ lift }}</td style="width:16.6666666667%">
-                        {% endfor %}         
-                    </tr>
-                    <!-- Attempt Updates -->
-                    <tr>
-                        {% for lift in athlete.lift_set.all %}
-                                <td style="width:16.6666666667%"><span class="text-secondary">#</span>{{ lift.changes }}/3</td style="width:16.6666666667%">
-                        {% endfor %}
+                    {% for lift in athlete.lift_set.all %}
+                        {% if forloop.counter0|divisibleby:6 %}
+                        </tr>
+                            <tr>
+                        {% endif %}
+                        <td style="width:16.6666666667%">{{ lift }}</td style="width:16.6666666667%">
+                    {% endfor %}
                     </tr>
                 <tbody>
             </table>
