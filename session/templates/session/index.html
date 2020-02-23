@@ -20,7 +20,17 @@
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-4 align-self-center">
-                                            <h4>{{ athlete.get_next_lift }}<span class="text-secondary">kg</span></h4>
+                                            <h4>
+                                                <!-- If weight is -1 (default), display --, else display the actual weight -->
+                                                {% if athlete.get_next_lift.weight != -1 %}
+                                                    {{ athlete.get_next_lift }}
+                                                {% else %}
+                                                    --
+                                                {% endif %}
+
+                                            
+                                                <span class="text-secondary">kg</span>
+                                            </h4>
                                         </div>
                                         <div class="col-8">
                                             <span class="text-primary">{{athlete}}</span><br>
@@ -53,7 +63,14 @@
                         </tr>
                             <tr>
                         {% endif %}
-                        <td style="width:16.6666666667%">{{ lift }}</td style="width:16.6666666667%">
+                        <td style="width:16.6666666667%">
+                            <!-- If weight is -1 (default), display --, else display the actual weight -->
+                            {% if lift.weight != -1 %}
+                                {{ lift }}
+                            {% else %}
+                                --
+                            {% endif %}
+                        </td style="width:16.6666666667%">
                     {% endfor %}
                     </tr>
                 <tbody>
