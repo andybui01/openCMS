@@ -27,8 +27,6 @@
                                                 {% else %}
                                                     --
                                                 {% endif %}
-
-                                            
                                                 <span class="text-secondary">kg</span>
                                             </h4>
                                         </div>
@@ -52,34 +50,43 @@
             <table class="table text-center">
                 <thead>
                     <tr>
+                        <td colspan="1"></td>
                         <th class="text-center" style="width:50%" colspan="3">Snatch</th>
                         <th class="text-center" style="width:50%" colspan="3">Clean and Jerk</th>
                     </tr>
                 </thead>
-                <tbody>            
+                <tbody>
                     <tr>
                     {% for lift in athlete.lift_set.all %}
                         {% if forloop.counter0|divisibleby:6 %}
                         </tr>
                             <tr>
+                                {% if forloop.counter0 == 0 %}
+                                    <td style="width:14.2857142857%">Declared weight</td>
+                                {% elif forloop.counter0 == 7 %}
+                                    <td style="width:14.2857142857%">1st change</td>
+                                {% else %}
+                                    <td style="width:14.2857142857%">2nd change</td>
+                                {% endif %}
+
                         {% endif %}
-                        <td style="width:16.6666666667%">
+                        <td style="width:14.2857142857%">
                             <!-- If weight is -1 (default), display --, else display the actual weight -->
                             {% if lift.weight != -1 %}
                                 {{ lift }}
                             {% else %}
                                 --
                             {% endif %}
-                        </td style="width:16.6666666667%">
+                        </td>
                     {% endfor %}
                     </tr>
-                <tbody>
+                </tbody>
             </table>
         </div>
         {% endfor %}
     </div>
-    
+
 </div>
-    
+
 
 {% endblock %}
