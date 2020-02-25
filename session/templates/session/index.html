@@ -2,6 +2,8 @@
 
 {% load crispy_forms_tags %}
 {% load humanize %}
+{% load static %}
+
 
 {% block content %}
 <h2>{{ session }}
@@ -13,7 +15,7 @@
     <div class="col-4">
         <div style="overflow-y:auto; max-height: 30rem;">
             {% if athletes_list %}
-                {% for athlete in session.sorted_athlete_set %}
+                {% for athlete in athletes_list %}
                     <div class="card bg-light mb-3" style="max-width: 30rem;">
                             <div class="card-body">
                                 <a class="stretched-link" data-toggle="collapse" href="#info-{{athlete.pk}}"></a>
@@ -44,9 +46,9 @@
     </div>
 
     <div class="col-8" id="info-{{athlete.pk}}">
-        {% for athlete in session.sorted_athlete_set %}
+        {% for athlete in athletes_list %}
         <div id="info-{{athlete.pk}}" class="collapse" style="transition: none !important;" data-parent="#infobox">
-            <h4>{{ athlete }}</h4>
+            <h4 class="text-primary">{{ athlete }}</h4>
             <table class="table table-borderless text-center">
                 <thead>
                     <tr class="bg-light">
@@ -109,9 +111,34 @@
             </table>
         </div>
         {% endfor %}
+        <div class="row">
+            <div class="col">
+                <div class="card" style="width: 12rem;">
+                    <div class="card-header font-weight-bold">
+                        Bar loading
+                    </div>
+                    <img src="{% static bg_path %}" class="card-img-bottom">
+                </div>
+            </div>
+            
+        </div>
+        
+
+        <!-- <div class="row">
+            <div class="col">
+                <div class="row">
+                    <h5>Bar loading</h5>
+                </div>
+                <div class="row">
+                    <img src="{% static bg_path %}">
+                </div>
+            
+            </div>
+        </div> -->
     </div>
 
 </div>
+
 
 
 {% endblock %}

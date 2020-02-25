@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
+from simple_barloader.generate import generate
 
 from ..models import Session, Athlete
 from ..forms import CreateAthleteForm, UpdateAthleteForm
@@ -12,14 +13,26 @@ def index(request, meet_id, session_id):
     if session.meet.id != meet_id:
         raise Http404("Session not found!")
 
-    athletes_list = session.athlete_set.all()
+    athletes_list = session.sorted_athlete_set()
+    
+    next_athlete = athletes_list.first()
+    print("ready? looking for "+str(next_athlete))
+    print(next_athlete.next_weight)
+    print(next_athlete.gender)
 
+    weight = next_athlete.next_weight
+    if weight < 25:
+        weight = 25
+
+    bg_path = 'session/' + generate(weight, next_athlete.gender, file_path='session/static/session/')
+    print(bg_path)
     form = UpdateAthleteForm()
 
     context = {
         'session': session,
         'athletes_list': athletes_list,
-        'form':form
+        'form':form,
+        'bg_path':bg_path
     }
 
     return render(request, 'session/index.html', context)
