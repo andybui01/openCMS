@@ -17,11 +17,13 @@ def index(request, meet_id, session_id):
     
     next_athlete = athletes_list.first()
 
-    weight = next_athlete.next_weight
-    if weight < 25:
-        weight = 25
+    bg_path = ''
+    if next_athlete != None:
+        weight = next_athlete.next_weight
+        if weight < 25:
+            weight = 25
 
-    bg_path = 'session/' + generate(weight, next_athlete.gender, file_path='session/static/session/')
+        bg_path += 'session/' + generate(weight, next_athlete.gender, file_path='session/static/session/')
 
     form = UpdateAthleteForm()
 
