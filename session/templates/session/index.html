@@ -113,9 +113,37 @@
         {% endfor %}
         <div class="row">
             <div class="col">
+                <div class="card text-center" style="max-width: 50rem;">
+                    <div class="card-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-4 align-self-center">
+                                    <h4>{{ athletes_list.first.next_weight }} <span class="text-secondary">kg</span></h4>
+                                </div>
+                                <div class="col-4 align-self-center">
+                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                        <label class="btn btn-success">
+                                        <input type="radio" name="options" id="option1" autocomplete="off">Good lift
+                                        </label>
+                                        <label class="btn btn-danger">
+                                        <input type="radio" name="options" id="option2" autocomplete="off">Bad Lift
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-4 align-self-center">
+                                    lorem
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>     
+        </div>
+        <div class="row mt-3">
+            <div class="col">
                 <div class="card" style="width: 12rem;">
                     <div class="card-header font-weight-bold">
-                        Bar loading
+                        <span class="text-secondary">Bar loading</span>
                     </div>
                     <img src="{% static bg_path %}" class="card-img-bottom">
                 </div>

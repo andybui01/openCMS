@@ -16,16 +16,13 @@ def index(request, meet_id, session_id):
     athletes_list = session.sorted_athlete_set()
     
     next_athlete = athletes_list.first()
-    print("ready? looking for "+str(next_athlete))
-    print(next_athlete.next_weight)
-    print(next_athlete.gender)
 
     weight = next_athlete.next_weight
     if weight < 25:
         weight = 25
 
     bg_path = 'session/' + generate(weight, next_athlete.gender, file_path='session/static/session/')
-    print(bg_path)
+
     form = UpdateAthleteForm()
 
     context = {
